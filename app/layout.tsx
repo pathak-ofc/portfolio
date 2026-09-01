@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   keywords: ["Bimal Pathak", "Full-Stack Developer", "MERN", "Next.js", "TypeScript", "Portfolio"],
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Bimal Pathak — Portfolio",
+    title: "Bimal Pathak",
     description:
       "Full-stack developer — MERN, Next.js, TypeScript. Open to internships & collaborations.",
     type: "website",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bimal Pathak — Portfolio",
+    title: "Bimal Pathak",
     description: "Full-stack developer — MERN, Next.js, TypeScript.",
   },
   alternates: { canonical: "https://github.com/pathak-ofc" },
