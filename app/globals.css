@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Design tokens - dark is default (IDE) */
+:root {
+  --bg: #0c0c11;
+  --panel: #131318;
+  --panel-2: #1a1a21;
+  --border: #26262f;
+  --text: #e8e6e2;
+  --text-dim: #8c8a95;
+  --text-faint: #56545e;
+  --accent: #ffb454;
+  --mint: #6ee7b7;
+  --blue: #7dd3fc;
+  --radius: 8px;
+}
+
+/* Light theme - activated when html does NOT have .dark */
+html:not(.dark) {
+  --bg: #fafaf9;
+  --panel: #ffffff;
+  --panel-2: #f4f4f5;
+  --border: #e4e4e7;
+  --text: #18181b;
+  --text-dim: #71717a;
+  --text-faint: #a1a1aa;
+  /* keep accents same for brand consistency */
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-dim: var(--text-dim);
+  --color-text-faint: var(--text-faint);
+  --color-accent: var(--accent);
+  --color-mint: var(--mint);
+  --color-blue: var(--blue);
+  --font-sans: var(--font-space);
+  --font-mono: var(--font-jetbrains);
+  --radius-card: var(--radius);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-space), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Focus visible - amber ring */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Thin hairline */
+.hairline {
+  border-color: var(--border);
+}
+
+/* Mono font utility */
+.font-mono {
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+/* Custom scrollbar for webkit */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Blinking cursor */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-blink {
+    animation: none;
+    opacity: 1;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Pulsing dot */
+@keyframes pulse-mint {
+  0% { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(110, 231, 183, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(110, 231, 183, 0); }
+}
+.dot-pulse {
+  animation: pulse-mint 2s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dot-pulse { animation: none; }
+}
+
+/* Hide scrollbar for tab bar on mobile but keep scroll */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: #0c0c11;
+}
+
+/* Glowing follow cursor — keep native arrow, glow is extra (no cursor:none) */
+@media (pointer: coarse) {
+  /* hide glow on touch — handled in JS, keep native cursor */
+}
+
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
