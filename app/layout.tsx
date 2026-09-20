@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./context/ThemeContext";
+import { LoadingScreen } from "@/components/LoadingScreen";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -72,9 +73,17 @@ export default function RootLayout({
             __html: `(function(){try{var t=localStorage.getItem('theme');var m=window.matchMedia('(prefers-color-scheme: dark)').matches;var d=t? t==='dark' : m;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
           }}
         />
+        {/* Veil the portfolio before hydration so the boot loader never flashes over live content */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var seen=sessionStorage.getItem('portfolio:loader-shown');if(!seen){var h=document.documentElement;h.setAttribute('data-loader','on');setTimeout(function(){h.removeAttribute('data-loader')},8000);}}catch(e){}})();`,
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--text)]">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <LoadingScreen>{children}</LoadingScreen>
+        </ThemeProvider>
       </body>
     </html>
   );
